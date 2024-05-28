@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const baseURL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 
 const networkRequest = async <T>(
@@ -6,20 +8,15 @@ const networkRequest = async <T>(
   body?: any
 ): Promise<T | null> => {
   try {
-    const response = await fetch(`${baseURL}${url}`, {
+    const response = await axios({
+      url: new URL(url, baseURL).href,
       method: method,
-      body: method === "POST" ? JSON.stringify(body) : null,
+      data: method === "POST" ? body : null,
     });
 
-    if (!response.ok) {
-      console.error("Error Network Request");
-      return null;
-    }
-
-    const data = await response.json();
-    return data as T;
+    return response.data as T;
   } catch (error) {
-    console.error(error);
+    console.error("Error Network Request:", error);
     return null;
   }
 };
