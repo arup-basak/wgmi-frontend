@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import urls from "@/constants/urls";
 import networkRequest from "@/libs/networkRequest";
 import { type OdysseyResource } from "@/interface/OdysseyTypes";
+import Fee from "@/interface/fees.interface";
 
 interface OdysseyResponse {
   odyssey: OdysseyResource;
@@ -8,18 +10,18 @@ interface OdysseyResponse {
 
 interface Fees {
   key: string;
-  amount: string; // Note: amount is still considered as string
+  amount: string;
 }
 
 interface FeesData {
   key: string;
   value: {
-    amount: string; // Note: amount is still considered as string
+    amount: string;
   }[];
 }
 
-const fetchOdyssey = async (aptos: any) => {
-  if (!aptos) return;
+const fetchOdysseyData = async (aptos: any) => {
+  if (!aptos) return null;
   try {
     const odysseyResponse = await networkRequest<OdysseyResponse>(
       urls.getOdyssey,
@@ -30,12 +32,11 @@ const fetchOdyssey = async (aptos: any) => {
 
     if (!odyssey) {
       console.error("Odyssey not found");
-      return;
+      return null;
     }
 
     const sum_fees: Fees[] =
       odyssey?.fees.data.map((item: FeesData) => {
-        // Summing up the amount values within the value array
         const totalAmount = item.value.reduce(
           (acc, fee) => acc + parseInt(fee.amount),
           0
@@ -50,7 +51,35 @@ const fetchOdyssey = async (aptos: any) => {
     return { odyssey, sum_fees, collectionData };
   } catch (e: any) {
     console.error("Error getting odyssey:", e.message);
+    return null;
   }
 };
 
-export default fetchOdyssey;
+const useOdyssey = (aptos: any, account: any) => {
+  const [odyssey, setOdyssey] = useState<OdysseyResource | null>();
+  const [sum_fees, setFees] = useState<Fees[]>([]);
+  const [collectionData, setCollectionData] = useState<any | null>();
+
+  useEffect(() => {
+    if (!aptos) return;
+
+    const fetchData = async () => {
+      const result = await fetchOdysseyData(aptos);
+      if (result) {
+        result.odyssey && setOdyssey(result.odyssey as OdysseyResource);
+        result.sum_fees && setFees(result.sum_fees as Fee[]);
+        result.collectionData && setCollectionData(result.collectionData);
+      }
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(fetchData, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [account?.address]);
+
+  return { odyssey, sum_fees, collectionData };
+};
+
+export default useOdyssey;

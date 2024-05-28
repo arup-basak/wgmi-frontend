@@ -2,7 +2,7 @@ import urls from "@/constants/urls";
 import networkRequest from "@/libs/networkRequest";
 import type Stage from "@/interface/stage.interface";
 
-interface StageResponse {
+export interface StageResponse {
   stage: {
     mint_stages: {
       data: Stage[];
