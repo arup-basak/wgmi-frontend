@@ -46,4 +46,12 @@ const unixTimeDiff = (timestamp: number) => {
   return timeDifference(formatUnixTimestamp(timestamp));
 };
 
-export { timeDifference, formatUnixTimestamp , unixTimeDiff};
+const isTimeActive = (startInTimestamp: number, endInTimestamp: number) => {
+  const currentUnixTimestampSeconds = Math.floor(Date.now() / 1000);
+  return (
+    currentUnixTimestampSeconds > startInTimestamp &&
+    currentUnixTimestampSeconds < endInTimestamp
+  );
+};
+
+export { timeDifference, formatUnixTimestamp, unixTimeDiff, isTimeActive };

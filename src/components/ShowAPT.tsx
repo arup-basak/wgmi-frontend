@@ -5,11 +5,7 @@ const ShowAPT = ({ value }: { value: string }) => {
     return apt / 100000000;
   };
   return (
-    <Heading
-      text={`${formatAPT(parseInt(value))} APT`}
-      className="text-xs md:text-base"
-      level="h6"
-    />
+    <p className="font-semibold">{`${formatAPT(parseInt(value))} APT`}</p>
   );
 };
 

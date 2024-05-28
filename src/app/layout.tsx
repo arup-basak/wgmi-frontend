@@ -19,14 +19,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const google_analytics_id = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <GoogleAnalytics gaId="G-*******" />
+      <body className={`${inter.className} overflow-hidden`}>
+        {google_analytics_id && <GoogleAnalytics gaId={google_analytics_id} />}
         <BackgroundImage />
         <RootLayoutProvider>
-          <TopBar />
-          {children}
+          <div className="overflow-y-scroll h-screen">
+            <TopBar />
+            {children}
+          </div>
         </RootLayoutProvider>
       </body>
     </html>

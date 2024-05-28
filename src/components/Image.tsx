@@ -5,12 +5,14 @@ interface Props {
   src: string;
   alt: string;
   className?: string;
+  priority?: boolean;
 }
 
 const Image = ({
   src,
   alt,
   className = "h-[20rem] w-[20rem] rounded-[1.5rem]",
+  priority = false,
 }: Props) => {
   return (
     <div className={`overflow-hidden relative ${className}`}>
@@ -20,6 +22,7 @@ const Image = ({
         className="w-full h-full"
         objectFit="cover"
         fill
+        priority={priority}
       />
     </div>
   );
