@@ -30,9 +30,10 @@ const Page = () => {
   const { stages } = useStage(account);
 
   const handleMint = async (mintQty: number) => {
-    if (!account) {
+    if (!account || !odyssey || !mintQty || isLoading) {
       return;
     }
+
     try {
       setLoading(true); // Set loading to true when minting starts
 
@@ -40,6 +41,11 @@ const Page = () => {
         urls.getMintedTxn(account.address, mintQty),
         "GET"
       );
+
+      if(!mintedTxn) {
+        console.error("Minting error: No minted transaction found")
+        return;
+      }
 
       //aptos.transaction.batch.forSingleAccount({ sender: account, data: data.payloads });
       //Sign and submit transaction to chain
@@ -55,6 +61,8 @@ const Page = () => {
       // Function to filter and find all 'Mint' events
 
       const tokens = await findAllMintedTokens(mintedTransactions);
+
+      console.log(tokens);
 
       setLoading(false);
     } catch (error) {
