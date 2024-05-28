@@ -1,23 +1,27 @@
-import { instance } from "./axiosInstance";
+const baseURL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 
 const networkRequest = async <T>(
   url: string,
   method: "GET" | "POST",
   body?: any
-) => {
+): Promise<T | null> => {
   try {
-    const resp = await instance({
-      url,
-      method,
-      data: body,
+    const response = await fetch(`${baseURL}${url}`, {
+      method: method,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: method === "POST" ? JSON.stringify(body) : null,
     });
 
-    if (resp) {
-      return resp.data as T;
-    } else {
+    if (!response.ok) {
       console.error("Error Network Request");
       return null;
     }
+
+    const data = await response.json();
+    return data as T;
   } catch (error) {
     console.error(error);
     return null;
