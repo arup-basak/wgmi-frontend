@@ -6,6 +6,7 @@ import { TokenMetadata } from "../interface/TokenMetadata";
 import Heading from "./Heading";
 import ImageViewer from "./AssetCard";
 import { FaXTwitter } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 interface Props {
   accountAddress: string;
@@ -18,8 +19,7 @@ const OwnedAssetsComponent: React.FC<Props> = ({
   collectionAddress,
   aptos,
 }) => {
-  const [ownedAssets, setOwnedAssets] =
-    useState<TokenMetadata[]>(sampleTokenMetadata);
+  const [ownedAssets, setOwnedAssets] = useState<TokenMetadata[]>([]);
 
   const fetchMetadata = async (uri: string) => {
     const response = await fetch(uri);
@@ -67,13 +67,13 @@ const OwnedAssetsComponent: React.FC<Props> = ({
       console.error("Failed to fetch owned assets:", error);
     }
   };
-  /*
+
   useEffect(() => {
     fetchOwnedAssets();
     const interval = setInterval(fetchOwnedAssets, 10000); // Polling every 10 seconds
 
     return () => clearInterval(interval); // Cleanup function to clear the interval
-  }, [accountAddress, collectionAddress]);*/
+  }, [accountAddress, collectionAddress]);
   return (
     <div className="flex flex-wrap justify-center gap-4 md:gap-8 py-4">
       {ownedAssets.map((asset, index) => (
@@ -85,9 +85,16 @@ const OwnedAssetsComponent: React.FC<Props> = ({
               <Tag text={`${attr.trait_type}: ${attr.value}`} key={idx} />
             ))}
           </div>
-          <button className="mt-2 flex gap-2 justify-center items-center w-full">
+          <motion.button
+            className="mt-2 flex gap-2 justify-center items-center w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             Share it on <FaXTwitter />
-          </button>
+          </motion.button>
         </ImageViewer>
       ))}
     </div>
