@@ -8,10 +8,6 @@ const networkRequest = async <T>(
   try {
     const response = await fetch(`${baseURL}${url}`, {
       method: method,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
       body: method === "POST" ? JSON.stringify(body) : null,
     });
 

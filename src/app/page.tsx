@@ -7,7 +7,6 @@ import urls from "@/constants/urls";
 import networkRequest from "@/libs/networkRequest";
 import findAllMintedTokens from "@/libs/findAllMintedTokens";
 import Spinner from "@/components/Spinner";
-import type Stage from "@/interface/stage.interface";
 import Heading from "@/components/Heading";
 import Image from "@/components/Image";
 import MintedProgress from "@/components/MintedProgress";
@@ -17,11 +16,11 @@ import useOdyssey from "@/hooks/useOdyssey";
 import useStage from "@/hooks/useStage";
 
 const Page = () => {
-  const { account, signAndSubmitTransaction } = useWallet();
-  const [isLoading, setLoading] = useState(true);
-  const [collectionName, setCollectionName] = useState<string>("");
-
   const aptos = getNetwork();
+
+  const { account, signAndSubmitTransaction } = useWallet();
+  const [isLoading, setLoading] = useState(false);
+
   const {
     odyssey,
     sum_fees: fees,
@@ -73,7 +72,7 @@ const Page = () => {
             className="aspect-square rounded-xl min-w-[25rem]"
           />
           <div className="space-y-2 md:space-y-4">
-            <Heading text={collectionName} level="h2" />
+            <Heading text={collectionData?.collectionName} level="h2" />
             <p>{odyssey.description}</p>
             {stages.length > 0 &&
               stages.map((stage, index) => {
