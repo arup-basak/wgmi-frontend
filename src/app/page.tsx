@@ -69,9 +69,10 @@ const Page = () => {
           <Image
             src={odyssey.cover}
             alt="cover image"
-            className="aspect-square rounded-xl min-w-[25rem]"
+            className="aspect-square rounded-xl md:min-w-[25rem]"
+            priority
           />
-          <div className="space-y-2 md:space-y-4">
+          <div className="space-y-2 md:space-y-4 md:min-w-[28rem]">
             <Heading text={collectionData?.collectionName} level="h2" />
             <p>{odyssey.description}</p>
             {stages.length > 0 &&

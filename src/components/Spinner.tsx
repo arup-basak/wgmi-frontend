@@ -1,22 +1,30 @@
-"use client";
+"use client"
 
-import React from "react";
-import { MutatingDots } from "react-loader-spinner";
+import { FC } from "react";
+import { motion } from "framer-motion";
 
-const Spinner = () => {
+const LoadingSpinner: FC = () => {
+  const circleVariants = {
+    animationOne: {
+      scale: [1, 1.5, 1],
+      opacity: [1, 0.5, 1],
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
-    <MutatingDots
-      visible={true}
-      height="100"
-      width="100"
-      color="#fff"
-      secondaryColor="#fff"
-      radius="12.5"
-      ariaLabel="mutating-dots-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-    />
+    <div className="flex justify-center items-center h-[60vh]">
+      <motion.div
+        className="w-16 h-16 border-4 border-t-4 border-white rounded-full"
+        variants={circleVariants}
+        animate="animationOne"
+      />
+    </div>
   );
 };
 
-export default Spinner;
+export default LoadingSpinner;
