@@ -16,12 +16,12 @@ const circles: Circle[] = [
   {
     color: color.orange,
     style:
-      "bottom-0 left-6 w-[30rem] h-[30rem] hidden md:block md:bottom-0 md:left-12 md:w-[32rem] md:h-[32rem]",
+      "bottom-0 left-0 w-[60rem] h-[60rem] md:bottom-0 md:left-12 md:w-[32rem] md:h-[32rem]",
   },
   {
     color: color.green,
     style:
-      "bottom-0 right-0 w-[60rem] h-[60rem] md:bottom-0 md:right-0 md:w-[50rem] md:h-[50rem]",
+      "bottom-0 right-0 w-[20rem] h-[20rem] md:bottom-0 md:right-0 md:w-[50rem] md:h-[50rem]",
   },
   {
     color: color.blue,

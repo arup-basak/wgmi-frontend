@@ -46,3 +46,7 @@ button {
 .flex-row-col {
   @apply flex flex-col md:flex-row
 }
+
+.flex-col-row {
+  @apply flex md:flex-col
+}

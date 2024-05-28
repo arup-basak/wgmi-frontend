@@ -75,22 +75,20 @@ const OwnedAssetsComponent: React.FC<Props> = ({
     return () => clearInterval(interval); // Cleanup function to clear the interval
   }, [accountAddress, collectionAddress]);*/
   return (
-    <div className="flex flex-wrap md:gap-8 py-4">
+    <div className="flex flex-wrap justify-center gap-4 md:gap-8 py-4">
       {ownedAssets.map((asset, index) => (
-        <div key={index}>
-          <ImageViewer imageSrc={asset.metadata.image}>
-            <Heading text={asset.token_name} level="h4" />
-            {/* <p className="text-base">ID: {asset.token_data_id}</p> */}
-            <div className="flex flex-col gap-1">
-              {asset.metadata.attributes?.map((attr, idx) => (
-                <Tag text={`${attr.trait_type}: ${attr.value}`} />
-              ))}
-            </div>
-            <button className="mt-2 flex gap-2 justify-center items-center w-full">
-              Share it on <FaXTwitter />
-            </button>
-          </ImageViewer>
-        </div>
+        <ImageViewer imageSrc={asset.metadata.image} key={index}>
+          <Heading text={asset.token_name} level="h4" />
+          {/* <p className="text-base">ID: {asset.token_data_id}</p> */}
+          <div className="flex-col-row gap-1">
+            {asset.metadata.attributes?.map((attr, idx) => (
+              <Tag text={`${attr.trait_type}: ${attr.value}`} key={idx} />
+            ))}
+          </div>
+          <button className="mt-2 flex gap-2 justify-center items-center w-full">
+            Share it on <FaXTwitter />
+          </button>
+        </ImageViewer>
       ))}
     </div>
   );
