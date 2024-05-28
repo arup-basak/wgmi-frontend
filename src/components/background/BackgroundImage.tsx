@@ -37,7 +37,7 @@ const circles: Circle[] = [
 
 const BackgroundImage = () => {
   return (
-    <div className="absolute h-screen w-screen -z-10 overflow-hidden">
+    <div className="absolute min-h-screen w-screen -z-10 overflow-hidden">
       <svg className="absolute inset-0 w-full h-full">
         <defs>
           <filter id="noiseFilter">

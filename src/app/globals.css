@@ -20,16 +20,19 @@ img {
 }
 
 main {
-  @apply flex items-center justify-center p-2 md:p-0;
+  @apply flex flex-col items-center p-2 md:p-0;
 }
 
 p {
   @apply text-white text-sm md:text-base;
 }
 
+button {
+  @apply bg-white p-1 px-2 rounded;
+}
 
 .glass-morphism {
-  background: rgba(0, 0, 0, 0.02);
+  /* background: rgba(0, 0, 0, 0.02); */
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.3 );
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );

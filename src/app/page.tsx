@@ -14,6 +14,7 @@ import CountButton from "@/components/CountButton";
 import StageCard from "@/components/StageCard";
 import useOdyssey from "@/hooks/useOdyssey";
 import useStage from "@/hooks/useStage";
+import OwnedCollectionAsset from "@/components/OwnedCollectionAsset";
 
 const Page = () => {
   const aptos = getNetwork();
@@ -65,7 +66,7 @@ const Page = () => {
   if (!isLoading && odyssey)
     return (
       <main>
-        <div className="glass-morphism centered-container flex-row-col gap-6">
+        <div className="glass-morphism bg-white bg-opacity-10 centered-container flex-row-col gap-6">
           <Image
             src={odyssey.cover}
             alt="cover image"
@@ -93,6 +94,16 @@ const Page = () => {
             />
           </div>
         </div>
+        {account && (
+          <div className="p-12 max-w-screen-xl flex flex-col items-center">
+            <Heading text="Your Minted NFTs: " level="h3" />
+            <OwnedCollectionAsset
+              accountAddress={account.address}
+              collectionAddress={odyssey.collection.inner}
+              aptos={aptos}
+            />
+          </div>
+        )}
       </main>
     );
 

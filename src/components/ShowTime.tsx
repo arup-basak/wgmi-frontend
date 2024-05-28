@@ -15,7 +15,7 @@ const ShowTime = ({ startInTimestamp, endInTimestamp }: Props) => {
 
   if (currentUnixTimestampSeconds < endInTimestamp) {
     return (
-      <p className="min-w-[15rem] text-end">{`Ends in ${unixTimeDiff(endInTimestamp)}`}</p>
+      <p className="md:min-w-[15rem] text-end">{`Ends in ${unixTimeDiff(endInTimestamp)}`}</p>
     );
   }
 
