@@ -71,7 +71,7 @@ const Page = () => {
     }
   };
 
-  if (!isLoading && odyssey)
+  if (odyssey)
     return (
       <main className="">
         <div className="glass-morphism bg-white bg-opacity-10 centered-container flex-row-col gap-6 min-w-[24rem]">
