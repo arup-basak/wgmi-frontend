@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Manrope as Font } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import BackgroundImage from "@/components/background/BackgroundImage";
 import RootLayoutProvider from "@/providers/RootLayoutProvider";
@@ -7,7 +7,7 @@ import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import "./globals.css";
 import TopBar from "@/components/TopBar";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Font({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Wgmi Exchange",
@@ -22,7 +22,7 @@ export default function RootLayout({
   const google_analytics_id = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
   return (
     <html lang="en">
-      <body className={`${inter.className} overflow-hidden`}>
+      <body className={`${font.className} overflow-hidden`}>
         {google_analytics_id && <GoogleAnalytics gaId={google_analytics_id} />}
         <BackgroundImage />
         <RootLayoutProvider>

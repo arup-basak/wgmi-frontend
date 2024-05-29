@@ -73,7 +73,7 @@ const Page = () => {
 
   if (!isLoading && odyssey)
     return (
-      <main>
+      <main className="min-w-[24rem]">
         <div className="glass-morphism bg-white bg-opacity-10 centered-container flex-row-col gap-6">
           <Image
             src={odyssey.cover}
