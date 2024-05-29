@@ -11,12 +11,20 @@ export interface StageResponse {
   };
 }
 
-const fetchStage = async (accountAddress: string) => {
+const fetchStage = async (accountAddress?: string) => {
   try {
     const stageResponse = await networkRequest<StageResponse>(
       urls.getStage,
       "GET"
     );
+
+    if (!accountAddress) {
+      return {
+        stageResponse,
+        allowlistReponse: null,
+        publicListBalance: null,
+      };
+    }
 
     const allowlistReponse = await networkRequest(
       urls.getAllowListBalance(accountAddress),
