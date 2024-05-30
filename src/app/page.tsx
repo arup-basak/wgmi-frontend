@@ -61,7 +61,7 @@ const Page = () => {
 
       const tokens = await findAllMintedTokens(mintedTransactions);
 
-      console.log(tokens);
+      console.log("tokens", tokens);
 
       setLoading(false);
     } catch (error) {

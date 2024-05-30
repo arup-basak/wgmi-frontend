@@ -1,3 +1,19 @@
+import urls from "@/constants/urls";
+import networkRequest from "./networkRequest";
+
+const updateTokenMetadataImage = async (index: string, token: string) => {
+  try {
+    const response = await networkRequest(
+      urls.updateMetadataImage(index, token),
+      "GET"
+    );
+
+    console.log("Updated token metadata:", response);
+  } catch (error: any) {
+    console.error("Error updating token metadata:", error.message);
+  }
+};
+
 const findAllMintedTokens = async (transactions: any) => {
   const changes = transactions.changes || [];
   const mintedToken = [];
@@ -7,7 +23,7 @@ const findAllMintedTokens = async (transactions: any) => {
         console.log(change);
         const tokenAddress = change.address;
         const tokenIndex = change.data.data.index.value;
-        // await updateTokenMetadataImage(tokenIndex, tokenAddress);
+        await updateTokenMetadataImage(tokenIndex, tokenAddress);
         mintedToken.push(change);
       }
     }

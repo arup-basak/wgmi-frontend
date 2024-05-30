@@ -8,7 +8,6 @@ interface ImageViewerProps {
 }
 
 const AssetCard: React.FC<ImageViewerProps> = ({ imageSrc, children }) => {
-  console.log("Image Src", imageSrc);
   if (imageSrc)
     return (
       <motion.div
