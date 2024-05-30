@@ -34,11 +34,13 @@ const OwnedAssetsComponent: React.FC<Props> = ({
           accountAddress: accountAddress,
           collectionAddress: collectionAddress,
         });
+
+      console.log("Digital Assets", ownedDigitalAssets)
       const assetsWithMetadata = await Promise.all(
         ownedDigitalAssets.map(async (asset: any) => {
           let metadata = {
             name: "Default Name",
-            image: "Default Image URL",
+            image: "https://cdn.pixabay.com/photo/2022/02/18/16/09/ape-7020995_1280.png",
             description: "Default Description",
             attributes: [],
           };

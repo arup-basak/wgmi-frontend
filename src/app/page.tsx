@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import getNetwork from "@/network/getNetwork";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import urls from "@/constants/urls";
@@ -17,8 +17,7 @@ import useStage from "@/hooks/useStage";
 import OwnedCollectionAsset from "@/components/OwnedCollectionAsset";
 
 const Page = () => {
-  const aptos = getNetwork();
-
+  const aptos = useMemo(() => getNetwork(), []);
   const { account, signAndSubmitTransaction } = useWallet();
   const [isLoading, setLoading] = useState(false);
 
@@ -26,7 +25,7 @@ const Page = () => {
     odyssey,
     sum_fees: fees,
     collectionData,
-  } = useOdyssey(aptos, account);
+  } = useOdyssey(account);
   const { stages } = useStage(account);
 
   const handleMint = async (mintQty: number) => {
@@ -56,9 +55,9 @@ const Page = () => {
         transactionHash: response2.hash,
       });
 
-      //console.log(mintedTransactions);
+      // //console.log(mintedTransactions);
 
-      // Function to filter and find all 'Mint' events
+      // // Function to filter and find all 'Mint' events
 
       const tokens = await findAllMintedTokens(mintedTransactions);
 
@@ -71,9 +70,10 @@ const Page = () => {
     }
   };
 
+
   if (odyssey)
     return (
-      <main className="">
+      <main>
         <div className="glass-morphism bg-white bg-opacity-10 centered-container flex-row-col gap-6 min-w-[24rem]">
           <Image
             src={odyssey.cover}
@@ -82,7 +82,7 @@ const Page = () => {
             priority
           />
           <div className="space-y-2 md:space-y-4 md:min-w-[28rem]">
-            <Heading text={collectionData?.collectionName} level="h2" />
+            <Heading text={String(collectionData.collection_name)} level="h2" />
             <p>{odyssey.description}</p>
             {stages.length > 0 &&
               stages.map((stage, index) => {

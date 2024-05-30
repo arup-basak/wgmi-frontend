@@ -9,15 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aptos-labs/ts-sdk": "^1.16.0",
-    "@aptos-labs/wallet-adapter-ant-design": "^2.3.2",
-    "@aptos-labs/wallet-adapter-react": "^2.5.1",
+    "@aptos-labs/ts-sdk": "^1.13.2",
+    "@aptos-labs/wallet-adapter-ant-design": "^2.4.2",
+    "@aptos-labs/wallet-adapter-react": "^3.0.2",
     "@million/lint": "^1.0.0-rc.13",
     "@next/third-parties": "^14.2.3",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.2.6",
-    "million": "^3.1.6",
     "next": "14.2.3",
     "petra-plugin-wallet-adapter": "^0.4.5",
     "react": "^18",

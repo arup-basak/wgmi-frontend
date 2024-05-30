@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import fetchStage, { type StageResponse } from "@/network/stage";
+import fetchStage from "@/network/stage";
 import Stage from "@/interface/stage.interface";
 
 const useStage = (account: any) => {

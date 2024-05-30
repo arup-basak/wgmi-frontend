@@ -3,6 +3,7 @@ import urls from "@/constants/urls";
 import networkRequest from "@/libs/networkRequest";
 import { type OdysseyResource } from "@/interface/OdysseyTypes";
 import Fee from "@/interface/fees.interface";
+import getNetwork from "@/network/getNetwork";
 
 interface OdysseyResponse {
   odyssey: OdysseyResource;
@@ -21,7 +22,6 @@ interface FeesData {
 }
 
 const fetchOdysseyData = async (aptos: any) => {
-  if (!aptos) return null;
   try {
     const odysseyResponse = await networkRequest<OdysseyResponse>(
       urls.getOdyssey,
@@ -48,6 +48,8 @@ const fetchOdysseyData = async (aptos: any) => {
       collectionId: odyssey.collection.inner,
     });
 
+    console.log("Collection Data", collectionData)
+
     return { odyssey, sum_fees, collectionData };
   } catch (e: any) {
     console.error("Error getting odyssey:", e.message);
@@ -55,7 +57,9 @@ const fetchOdysseyData = async (aptos: any) => {
   }
 };
 
-const useOdyssey = (aptos: any, account: any) => {
+const useOdyssey = (account: any) => {
+  const aptos = getNetwork();
+
   const [odyssey, setOdyssey] = useState<OdysseyResource | null>();
   const [sum_fees, setFees] = useState<Fees[]>([]);
   const [collectionData, setCollectionData] = useState<any | null>();
