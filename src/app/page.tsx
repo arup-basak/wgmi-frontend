@@ -82,7 +82,7 @@ const Page = () => {
             priority
           />
           <div className="space-y-2 md:space-y-4 md:min-w-[28rem]">
-            <Heading text={String(collectionData.collection_name)} level="h2" />
+            <Heading text={collectionData?.collection_name} level="h2" />
             <p>{odyssey.description}</p>
             {stages.length > 0 &&
               stages.map((stage, index) => {
