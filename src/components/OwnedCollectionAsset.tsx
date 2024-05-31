@@ -80,8 +80,8 @@ const OwnedAssetsComponent: React.FC<Props> = ({
     <div className="flex flex-wrap justify-center gap-4 md:gap-8 py-4">
       {ownedAssets.map((asset, index) => (
         <ImageViewer imageSrc={asset.metadata.image} key={index}>
-          <Heading text={asset.token_name} level="h4" />
-          {/* <p className="text-base">ID: {asset.token_data_id}</p> */}
+          <Heading text={asset.token_name} level="h6" />
+          {/* <p className="text-base">ID: {asset.token_data_id}</p>
           <div className="flex-col-row gap-1">
             {asset.metadata.attributes?.map((attr, idx) => (
               <Tag text={`${attr.trait_type}: ${attr.value}`} key={idx} />
@@ -96,7 +96,7 @@ const OwnedAssetsComponent: React.FC<Props> = ({
             transition={{ duration: 0.3 }}
           >
             Share it on <FaXTwitter />
-          </motion.button>
+          </motion.button>*/}
         </ImageViewer>
       ))}
     </div>
@@ -104,51 +104,3 @@ const OwnedAssetsComponent: React.FC<Props> = ({
 };
 
 export default OwnedAssetsComponent;
-
-const sampleTokenMetadata: TokenMetadata[] = [
-  {
-    token_data_id: "1",
-    token_name: "Token One",
-    token_uri: "https://example.com/token1",
-    metadata: {
-      name: "Token One",
-      image:
-        "https://cdn.pixabay.com/photo/2021/11/03/08/24/baskets-6765014_1280.jpg",
-      description: "Description for Token One",
-      attributes: [
-        { trait_type: "Color", value: "Red" },
-        { trait_type: "Size", value: "Large" },
-      ],
-    },
-  },
-  {
-    token_data_id: "2",
-    token_name: "Token Two",
-    token_uri: "https://example.com/token2",
-    metadata: {
-      name: "Token Two",
-      image:
-        "https://cdn.pixabay.com/photo/2021/11/03/08/24/baskets-6765014_1280.jpg",
-      description: "Description for Token Two",
-      attributes: [
-        { trait_type: "Color", value: "Blue" },
-        { trait_type: "Size", value: "Medium" },
-      ],
-    },
-  },
-  {
-    token_data_id: "3",
-    token_name: "Token Three",
-    token_uri: "https://example.com/token3",
-    metadata: {
-      name: "Token Three",
-      image:
-        "https://cdn.pixabay.com/photo/2021/11/03/08/24/baskets-6765014_1280.jpg",
-      description: "Description for Token Three",
-      attributes: [
-        { trait_type: "Color", value: "Green" },
-        { trait_type: "Size", value: "Small" },
-      ],
-    },
-  },
-];
