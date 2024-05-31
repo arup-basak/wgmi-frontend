@@ -109,6 +109,7 @@ const Page = () => {
               accountAddress={account.address}
               collectionAddress={odyssey.collection.inner}
               aptos={aptos}
+              odyssey={odyssey}
             />
           </div>
         )}

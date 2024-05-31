@@ -1,23 +1,23 @@
 // SomeComponent.tsx or another TypeScript file
 import { useEffect, useState } from "react";
 import { Aptos } from "@aptos-labs/ts-sdk";
-import Tag from "./Tag";
 import { TokenMetadata } from "../interface/TokenMetadata";
 import Heading from "./Heading";
 import ImageViewer from "./AssetCard";
-import { FaXTwitter } from "react-icons/fa6";
-import { motion } from "framer-motion";
+import { OdysseyResource } from "@/interface/OdysseyTypes";
 
 interface Props {
   accountAddress: string;
   collectionAddress: string;
   aptos: Aptos;
+  odyssey: OdysseyResource;
 }
 
 const OwnedAssetsComponent: React.FC<Props> = ({
   accountAddress,
   collectionAddress,
   aptos,
+  odyssey,
 }) => {
   const [ownedAssets, setOwnedAssets] = useState<TokenMetadata[]>([]);
 
@@ -40,7 +40,7 @@ const OwnedAssetsComponent: React.FC<Props> = ({
         ownedDigitalAssets.map(async (asset: any) => {
           let metadata = {
             name: "Default Name",
-            image: "https://cdn.pixabay.com/photo/2022/02/18/16/09/ape-7020995_1280.png",
+            image: odyssey.cover,
             description: "Default Description",
             attributes: [],
           };
