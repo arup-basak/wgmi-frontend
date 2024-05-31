@@ -74,7 +74,7 @@ const Page = () => {
   if (odyssey)
     return (
       <main>
-        <div className="glass-morphism bg-white bg-opacity-10 centered-container flex-row-col gap-6 min-w-[24rem]">
+        <div className="glass-morphism bg-white bg-opacity-10 centered-container flex-row-col gap-6">
           <Image
             src={odyssey.cover}
             alt="cover image"

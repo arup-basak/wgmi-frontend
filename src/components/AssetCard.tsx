@@ -11,7 +11,7 @@ const AssetCard: React.FC<ImageViewerProps> = ({ imageSrc, children }) => {
   if (imageSrc)
     return (
       <motion.div
-        className="glass-morphism p-4 relative rounded-md shadow-lg bg-black bg-opacity-5 min-w-[14rem] md:min-w-0 flex flex-col items-center"
+        className="glass-morphism p-4 relative rounded-md shadow-lg bg-black bg-opacity-5 flex flex-col items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
