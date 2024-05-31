@@ -21,23 +21,23 @@ const circles: Circle[] = [
   {
     color: color.green,
     style:
-      "bottom-0 right-0 w-[20rem] h-[20rem] md:bottom-0 md:right-0 md:w-[50rem] md:h-[50rem]",
-  },
-  {
-    color: color.blue,
-    style:
-      "top-5 left-20 w-[40rem] h-[40rem] md:top-0 md:left-[35rem] md:w-[36rem] md:h-[36rem]",
+    "bottom-0 right-0 w-[20rem] h-[20rem] md:bottom-0 md:right-0 md:w-[50rem] md:h-[50rem]",
   },
   {
     color: color.orange,
     style:
-      "top-0 left-0 w-[30rem] h-[30rem] md:top-0 md:left-0 md:w-[32rem] md:h-[32rem]",
+    "top-0 left-0 w-[30rem] h-[30rem] md:top-0 md:left-0 md:w-[32rem] md:h-[32rem]",
+  },
+  {
+    color: color.blue,
+    style:
+    "top-96 left-0 w-[20rem] h-[20rem] md:top-0 md:left-[40rem] md:w-[40rem] md:h-[36rem]",
   },
 ];
 
 const BackgroundImage = () => {
   return (
-    <div className="absolute min-h-screen w-screen -z-10 overflow-hidden">
+    <div className="absolute min-h-screen w-screen -z-10 overflow-hidden top">
       <svg className="absolute inset-0 w-full h-full">
         <defs>
           <filter id="noiseFilter">
