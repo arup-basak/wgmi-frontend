@@ -11,6 +11,10 @@ export interface StageResponse {
   };
 }
 
+export interface BalanceResponse {
+  balance: string | number;
+}
+
 const fetchStage = async (accountAddress?: string) => {
   try {
     const stageResponse = await networkRequest<StageResponse>(
@@ -22,23 +26,23 @@ const fetchStage = async (accountAddress?: string) => {
       return {
         stageResponse,
         allowlistReponse: null,
-        publicListBalance: null,
+        publicListResponse: null,
       };
     }
 
-    const allowlistReponse = await networkRequest(
+    const allowlistBalance = await networkRequest<BalanceResponse>(
       urls.getAllowListBalance(accountAddress),
       "GET"
-    );
+    ).then((res) => res?.balance);
 
-    const publicListBalance = await networkRequest(
+    const publicListBalance = await networkRequest<BalanceResponse>(
       urls.getPublicListBalance(accountAddress),
       "GET"
-    );
+    ).then((res) => res?.balance);
 
     return {
       stageResponse,
-      allowlistReponse,
+      allowlistBalance,
       publicListBalance,
     };
   } catch (e: any) {

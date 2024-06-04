@@ -21,12 +21,8 @@ const Page = () => {
   const { account, signAndSubmitTransaction } = useWallet();
   const [isLoading, setLoading] = useState(false);
 
-  const {
-    odyssey,
-    sum_fees: fees,
-    collectionData,
-  } = useOdyssey(account);
-  const { stages } = useStage(account);
+  const { odyssey, sum_fees: fees, collectionData } = useOdyssey(account);
+  const { stages, allowListBalance, publicListBalance } = useStage(account);
 
   const handleMint = async (mintQty: number) => {
     if (!account || !odyssey || !mintQty || isLoading) {
@@ -41,8 +37,8 @@ const Page = () => {
         "GET"
       );
 
-      if(!mintedTxn) {
-        console.error("Minting error: No minted transaction found")
+      if (!mintedTxn) {
+        console.error("Minting error: No minted transaction found");
         return;
       }
 
@@ -70,7 +66,6 @@ const Page = () => {
     }
   };
 
-
   if (odyssey)
     return (
       <main>
@@ -88,7 +83,18 @@ const Page = () => {
               stages.map((stage, index) => {
                 const fee = fees.find((fee) => fee.key === stage.key);
 
-                return <StageCard stage={stage} fee={fee} key={index} />;
+                return (
+                  <StageCard
+                    stage={stage}
+                    fee={fee}
+                    key={index}
+                    limitText={
+                      stage.key === "Presale mint stage"
+                        ? (allowListBalance && `Per Wallet: ${allowListBalance}`)
+                        : (publicListBalance && `Per Wallet: ${publicListBalance}`)
+                    }
+                  />
+                );
               })}
             <MintedProgress
               maxSupply={parseInt(odyssey.collection_size)}

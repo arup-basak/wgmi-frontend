@@ -9,9 +9,10 @@ import { isTimeActive } from "@/libs/time";
 interface Props {
   stage: Stage;
   fee?: Fee;
+  limitText?: string;
 }
 
-const StageCard = ({ stage, fee }: Props) => {
+const StageCard = ({ stage, fee, limitText }: Props) => {
   const isActive = isTimeActive(stage.value.start_time, stage.value.end_time);
 
   return (
@@ -36,8 +37,9 @@ const StageCard = ({ stage, fee }: Props) => {
           endInTimestamp={stage.value.end_time}
         />
       </div>
-      <div>
+      <div className="flex justify-between">
         <ShowAPT value={fee?.amount || "0"} />
+        {limitText && <p>{limitText}</p>}
       </div>
     </motion.div>
   );
