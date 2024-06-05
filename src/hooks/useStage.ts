@@ -11,7 +11,7 @@ const useStage = (account: any) => {
     const fetchData = async () => {
       const result = await fetchStage(account?.address);
       if (result) {
-        setStages(result.stageResponse?.stage.mint_stages.data || []);
+        result.stageResponse?.stage.mint_stages.data && setStages(result.stageResponse?.stage.mint_stages.data || []);
         setAllowListBalance(result.allowlistReponse);
         setPublicListBalance(result.publicListBalance);
       }
