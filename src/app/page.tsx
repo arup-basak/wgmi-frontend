@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import io from "socket.io-client";
 import getNetwork from "@/network/getNetwork";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import urls from "@/constants/urls";
@@ -12,17 +13,57 @@ import Image from "@/components/Image";
 import MintedProgress from "@/components/MintedProgress";
 import CountButton from "@/components/CountButton";
 import StageCard from "@/components/StageCard";
-import useOdyssey from "@/hooks/useOdyssey";
-import useStage from "@/hooks/useStage";
 import OwnedCollectionAsset from "@/components/OwnedCollectionAsset";
+import { type OdysseyResource } from "@/interface/OdysseyTypes";
+import Stage from "@/interface/stage.interface";
+
+interface OdysseyResponse {
+  odyssey: OdysseyResource;
+}
+
+interface Fees {
+  key: string;
+  amount: string;
+}
+
+interface FeesData {
+  key: string;
+  value: {
+    amount: string;
+  }[];
+}
 
 const Page = () => {
   const aptos = useMemo(() => getNetwork(), []);
   const { account, signAndSubmitTransaction } = useWallet();
   const [isLoading, setLoading] = useState(false);
 
-  const { odyssey, sum_fees: fees, collectionData } = useOdyssey(account);
-  const { stages, allowListBalance, publicListBalance } = useStage(account);
+  const [odyssey, setOdyssey] = useState<OdysseyResource | null>();
+  const [fees, setFees] = useState<Fees[]>([]);
+  const [collectionData, setCollectionData] = useState<any | null>();
+
+  const [stages, setStages] = useState<Stage[]>([]);
+  const [allowListBalance, setAllowListBalance] = useState<any>(null);
+  const [publicListBalance, setPublicListBalance] = useState<any>(null);
+
+  useEffect(() => {
+    const socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string)
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+    socket.on('stage', (data) => {
+      console.log(data)
+      setStages(data.stage.mint_stages.data)
+    })
+    socket.on('odyssey', (data) => {
+      setOdyssey(data.odyssey)
+      setFees(data.odyssey.fees.data)
+      setCollectionData(data.odyssey.collection)
+    })
+    return () => {
+      socket.disconnect();
+    }
+  }, [])
 
   const handleMint = async (mintQty: number) => {
     if (!account || !odyssey || !mintQty || isLoading) {
