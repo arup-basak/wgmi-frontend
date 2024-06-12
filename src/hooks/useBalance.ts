@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import fetchStage from "@/network/stage";
 import Stage from "@/interface/stage.interface";
 
-const useStage = (account: any) => {
-  const [stages, setStages] = useState<Stage[]>([]);
+const useBalance = (account: any) => {
+  const [key, setKey] = useState<number>(0);
+  const refresh = () => setKey((prev) => prev + 1);
   const [allowListBalance, setAllowListBalance] = useState<any>(null);
   const [publicListBalance, setPublicListBalance] = useState<any>(null);
 
@@ -11,20 +12,15 @@ const useStage = (account: any) => {
     const fetchData = async () => {
       const result = await fetchStage(account?.address);
       if (result) {
-        result.stageResponse?.stage.mint_stages.data && setStages(result.stageResponse?.stage.mint_stages.data || []);
         setAllowListBalance(result.allowlistReponse);
         setPublicListBalance(result.publicListBalance);
       }
     };
 
     fetchData();
+  }, [account?.address, key]);
 
-    const intervalId = setInterval(fetchData, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [account?.address]);
-
-  return { stages, allowListBalance, publicListBalance };
+  return { allowListBalance, publicListBalance, refresh };
 };
 
-export default useStage;
+export default useBalance;

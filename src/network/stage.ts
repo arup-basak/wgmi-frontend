@@ -17,14 +17,8 @@ export interface BalanceResponse {
 
 const fetchStage = async (accountAddress?: string) => {
   try {
-    const stageResponse = await networkRequest<StageResponse>(
-      urls.getStage,
-      "GET"
-    );
-
     if (!accountAddress) {
       return {
-        stageResponse,
         allowlistReponse: null,
         publicListResponse: null,
       };
@@ -41,12 +35,11 @@ const fetchStage = async (accountAddress?: string) => {
     ).then((res) => res?.balance);
 
     return {
-      stageResponse,
       allowlistBalance,
       publicListBalance,
     };
   } catch (e: any) {
-    console.error("Error getting Stage Request", e.message);
+    console.error("Error getting Balance Request", e.message);
   }
 };
 

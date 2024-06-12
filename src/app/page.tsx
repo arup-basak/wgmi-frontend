@@ -16,10 +16,7 @@ import StageCard from "@/components/StageCard";
 import OwnedCollectionAsset from "@/components/OwnedCollectionAsset";
 import { type OdysseyResource } from "@/interface/OdysseyTypes";
 import Stage from "@/interface/stage.interface";
-
-interface OdysseyResponse {
-  odyssey: OdysseyResource;
-}
+import useBalance from "@/hooks/useBalance";
 
 interface Fees {
   key: string;
@@ -43,8 +40,8 @@ const Page = () => {
   const [collectionData, setCollectionData] = useState<any | null>();
 
   const [stages, setStages] = useState<Stage[]>([]);
-  const [allowListBalance, setAllowListBalance] = useState<any>(null);
-  const [publicListBalance, setPublicListBalance] = useState<any>(null);
+  
+  const { allowListBalance, publicListBalance, refresh } = useBalance(account);
 
   useEffect(() => {
     const socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string)
@@ -101,6 +98,7 @@ const Page = () => {
       console.log("tokens", tokens);
 
       setLoading(false);
+      refresh();
     } catch (error) {
       console.error("Minting error:", error);
       setLoading(false); // Set loading to false if there is an error
