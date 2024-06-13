@@ -150,7 +150,6 @@ const Page = () => {
         </div>
         {account && (
           <div className="p-12 max-w-screen-xl flex flex-col items-center">
-            <Heading text="Your Minted NFTs: " level="h3" />
             <OwnedCollectionAsset
               accountAddress={account.address}
               collectionAddress={odyssey.collection.inner}

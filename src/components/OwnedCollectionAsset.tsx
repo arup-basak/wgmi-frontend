@@ -35,7 +35,7 @@ const OwnedAssetsComponent: React.FC<Props> = ({
           collectionAddress: collectionAddress,
         });
 
-      console.log("Digital Assets", ownedDigitalAssets)
+      console.log("Digital Assets", ownedDigitalAssets);
       const assetsWithMetadata = await Promise.all(
         ownedDigitalAssets.map(async (asset: any) => {
           let metadata = {
@@ -77,29 +77,32 @@ const OwnedAssetsComponent: React.FC<Props> = ({
     return () => clearInterval(interval); // Cleanup function to clear the interval
   }, [accountAddress, collectionAddress]);
   return (
-    <div className="flex flex-wrap justify-center gap-4 md:gap-8 py-4">
-      {ownedAssets.map((asset, index) => (
-        <ImageViewer imageSrc={asset.metadata.image} key={index}>
-          <Heading text={asset.token_name} level="h6" />
-          {/* <p className="text-base">ID: {asset.token_data_id}</p>
+    <>
+      {ownedAssets.length > 0 && <Heading text="Your Minted NFTs: " level="h3" />}
+      <div className="flex flex-wrap justify-center gap-4 md:gap-8 py-4">
+        {ownedAssets.map((asset, index) => (
+          <ImageViewer imageSrc={asset.metadata.image} key={index}>
+            <Heading text={asset.token_name} level="h6" />
+            {/* <p className="text-base">ID: {asset.token_data_id}</p>
           <div className="flex-col-row gap-1">
-            {asset.metadata.attributes?.map((attr, idx) => (
-              <Tag text={`${attr.trait_type}: ${attr.value}`} key={idx} />
+          {asset.metadata.attributes?.map((attr, idx) => (
+            <Tag text={`${attr.trait_type}: ${attr.value}`} key={idx} />
             ))}
-          </div>
-          <motion.button
+            </div>
+            <motion.button
             className="mt-2 flex gap-2 justify-center items-center w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-          >
+            >
             Share it on <FaXTwitter />
-          </motion.button>*/}
-        </ImageViewer>
-      ))}
-    </div>
+            </motion.button>*/}
+          </ImageViewer>
+        ))}
+      </div>
+    </>
   );
 };
 
