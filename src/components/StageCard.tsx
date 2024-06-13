@@ -5,15 +5,22 @@ import { motion } from "framer-motion";
 import ShowTime from "./ShowTime";
 import ShowAPT from "./ShowAPT";
 import { isTimeActive } from "@/libs/time";
+import { useMaxStore } from "@/libs/store";
 
 interface Props {
   stage: Stage;
   fee?: Fee;
-  limitText?: string;
+  limit?: number;
 }
 
-const StageCard = ({ stage, fee, limitText }: Props) => {
+const StageCard = ({ stage, fee, limit = 0 }: Props) => {
   const isActive = isTimeActive(stage.value.start_time, stage.value.end_time);
+
+  const { setMaxMint } = useMaxStore();
+
+  if (isActive && limit) {
+    setMaxMint(parseInt(limit.toString()));
+  }
 
   return (
     <motion.div
@@ -37,9 +44,9 @@ const StageCard = ({ stage, fee, limitText }: Props) => {
           endInTimestamp={stage.value.end_time}
         />
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between text-white">
         <ShowAPT value={fee?.amount || "0"} />
-        {limitText && <p>{limitText}</p>}
+        {limit >= 0 && <p>{`Per wallet: ${limit}`}</p>}
       </div>
     </motion.div>
   );

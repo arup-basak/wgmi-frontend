@@ -10,7 +10,7 @@ interface Props {
 }
 
 const MintedProgressAntD: React.FC<Props> = ({ maxSupply, totalMinted }) => {
-  const percentage = Math.floor((totalMinted * 100) / maxSupply);
+  const percentage = Math.floor((totalMinted * 100 * 100) / maxSupply)/100;
 
   return (
     <div>

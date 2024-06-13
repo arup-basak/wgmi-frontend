@@ -11,9 +11,10 @@ const useBalance = (account: any) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchStage(account?.address);
+      console.log(result)
       if (result) {
-        setAllowListBalance(result.allowlistReponse);
-        setPublicListBalance(result.publicListBalance);
+        setAllowListBalance(parseInt(result.allowlistBalance as string));
+        setPublicListBalance(parseInt(result.publicListBalance as string));
       }
     };
 

@@ -17,7 +17,7 @@ import OwnedCollectionAsset from "@/components/OwnedCollectionAsset";
 import { type OdysseyResource } from "@/interface/OdysseyTypes";
 import Stage from "@/interface/stage.interface";
 import useBalance from "@/hooks/useBalance";
-
+import { useMaxStore } from "@/libs/store";
 interface Fees {
   key: string;
   amount: string;
@@ -31,6 +31,7 @@ interface FeesData {
 }
 
 const Page = () => {
+  const { maxMint } = useMaxStore();
   const aptos = useMemo(() => getNetwork(), []);
   const { account, signAndSubmitTransaction } = useWallet();
   const [isLoading, setLoading] = useState(false);
@@ -40,27 +41,27 @@ const Page = () => {
   const [collectionData, setCollectionData] = useState<any | null>();
 
   const [stages, setStages] = useState<Stage[]>([]);
-  
+
   const { allowListBalance, publicListBalance, refresh } = useBalance(account);
 
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string)
-    socket.on('connect', () => {
-      console.log('Connected to WebSocket server');
+    const socket = io(process.env.NEXT_PUBLIC_SERVER_URL as string);
+    socket.on("connect", () => {
+      console.log("Connected to WebSocket server");
     });
-    socket.on('stage', (data) => {
-      console.log(data)
-      setStages(data.stage.mint_stages.data)
-    })
-    socket.on('odyssey', (data) => {
-      setOdyssey(data.odyssey)
-      setFees(data.odyssey.fees.data)
-      setCollectionData(data.odyssey.collection)
-    })
+    socket.on("stage", (data) => {
+      console.log(data);
+      setStages(data.stage.mint_stages.data);
+    });
+    socket.on("odyssey", (data) => {
+      setOdyssey(data.odyssey);
+      setFees(data.odyssey.fees.data);
+      setCollectionData(data.odyssey.collection);
+    });
     return () => {
       socket.disconnect();
-    }
-  }, [])
+    };
+  }, []);
 
   const handleMint = async (mintQty: number) => {
     if (!account || !odyssey || !mintQty || isLoading) {
@@ -127,10 +128,10 @@ const Page = () => {
                     stage={stage}
                     fee={fee}
                     key={index}
-                    limitText={
+                    limit={
                       stage.key === "Presale mint stage"
-                        ? (allowListBalance && `Per Wallet: ${allowListBalance}`)
-                        : (publicListBalance && `Per Wallet: ${publicListBalance}`)
+                        ? allowListBalance
+                        : publicListBalance
                     }
                   />
                 );
@@ -143,7 +144,7 @@ const Page = () => {
               onSubmit={handleMint}
               minLimit={0}
               defaultValue={1}
-              maxLimit={10}
+              maxLimit={maxMint === 0 ? 10 : maxMint}
             />
           </div>
         </div>
