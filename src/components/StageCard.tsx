@@ -16,9 +16,9 @@ interface Props {
 const StageCard = ({ stage, fee, limit = 0 }: Props) => {
   const isActive = isTimeActive(stage.value.start_time, stage.value.end_time);
 
-  const { setMaxMint } = useMaxStore();
+  const { setMaxMint, maxMint } = useMaxStore();
 
-  if (isActive && limit) {
+  if (isActive && limit && limit !== maxMint) {
     setMaxMint(parseInt(limit.toString()));
   }
 
